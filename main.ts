@@ -173,4 +173,5 @@ forever(function () {
     music.playMelody("C5 B A F A C5 C5 G ", 500)
     music.playMelody("C E G B B G E C ", 500)
     music.playMelody("D C C5 B A E F C5 ", 500)
+    music.playMelody("C A B C B E D C5 ", 500)
 })
