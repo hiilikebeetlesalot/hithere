@@ -1,13 +1,15 @@
 namespace SpriteKind {
     export const meeting = SpriteKind.create()
 }
-let speed = 0
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Projectile, function (sprite, otherSprite) {
+    info.changeScoreBy(1)
+})
 let red: Sprite = null
 let color = 0
 let meeting = sprites.create(img`
-    ddddddddddddddddddddddddd
-    ddddddddddddddddddddddddd
-    ddddddddddddddddddddddddd
+    bbbbbbbbbbbbb1bbbbbbbbbbb
+    111111111111bd11111111111
+    ddddddddddddb1ddddddddddd
     dddddddd666666666dddddddd
     ddddddd66666666666ddddddd
     dddddd6666666666666dddddd
@@ -20,34 +22,35 @@ let meeting = sprites.create(img`
     666d6666665f5f5666666d666
     666d66666666666666666d666
     666d66666666666666666d666
-    666d66666666666666666d666
-    8d8dd666666666666666dd8d8
+    666b66666666666666666b666
+    8181166666666666666611818
     6666dd6666666666666dd6668
     666666d66666666666dd66666
     66666666666666666dd666666
     d66666666dd8888ddd66666dd
     dd8666666888888dd666668dd
     dd8d666668888888d666dd8dd
-    ddddd666dddddddddd8ddd8dd
-    dddddd8ddddddddddd8dddddd
+    ddddd666ddddb1dddd8ddd8dd
+    dddddd8dddddb1dddd8dddddd
     `, SpriteKind.meeting)
-tiles.setTilemap(tiles.createTilemap(hex`1000100001010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101`, img`
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
+let speed = 1
+tiles.setTilemap(tiles.createTilemap(hex`0a00100001010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101`, img`
+    . . . . . . . . . . 
+    . . . . . . . . . . 
+    . . . . . . . . . . 
+    . . . . . . . . . . 
+    . . . . . . . . . . 
+    . . . . . . . . . . 
+    . . . . . . . . . . 
+    . . . . . . . . . . 
+    . . . . . . . . . . 
+    . . . . . . . . . . 
+    . . . . . . . . . . 
+    . . . . . . . . . . 
+    . . . . . . . . . . 
+    . . . . . . . . . . 
+    . . . . . . . . . . 
+    . . . . . . . . . . 
     `, [myTiles.transparency16,sprites.dungeon.floorLight2], TileScale.Sixteen))
 effects.starField.startScreenEffect()
 let airlock = sprites.create(img`
@@ -72,7 +75,7 @@ let airlock = sprites.create(img`
     fdffffffffffffffddd5
     5dddffffffffffffffd5
     `, SpriteKind.Player)
-airlock.setPosition(84, 101)
+airlock.setPosition(84, 118)
 controller.moveSprite(airlock, 100, 0)
 scene.cameraFollowSprite(airlock)
 game.onUpdate(function () {
@@ -85,8 +88,9 @@ game.onUpdate(function () {
 	
 })
 game.onUpdateInterval(4000, function () {
-    color = randint(1, 4)
+    color = randint(1, 12)
     if (color == 1) {
+        meeting.setPosition(10, 10)
         red = sprites.createProjectileFromSprite(img`
             . . . . . . . . . . 
             . . f f f f f f . . 
@@ -111,7 +115,6 @@ game.onUpdateInterval(4000, function () {
         music.playMelody("A G A B A F A B ", 10000)
         music.playMelody("A G A B A F A B ", 10000)
         music.playMelody("A G A B A F A B ", 10000)
-        airlock.setPosition(84, 101)
         airlock.say("red was not the impostor")
     } else if (color == 2) {
         red = sprites.createProjectileFromSprite(img`
@@ -138,7 +141,6 @@ game.onUpdateInterval(4000, function () {
         music.playMelody("A G A B A F A B ", 10000)
         music.playMelody("A G A B A F A B ", 10000)
         music.playMelody("A G A B A F A B ", 10000)
-        airlock.setPosition(84, 101)
     } else if (color == 3) {
         red = sprites.createProjectileFromSprite(img`
             . . . . . . . . . . 
@@ -164,7 +166,6 @@ game.onUpdateInterval(4000, function () {
         music.playMelody("A G A B A F A B ", 10000)
         music.playMelody("A G A B A F A B ", 10000)
         music.playMelody("A G A B A F A B ", 10000)
-        airlock.setPosition(84, 101)
     } else if (color == 3) {
         red = sprites.createProjectileFromSprite(img`
             . . . . . . . . . . 
@@ -190,9 +191,31 @@ game.onUpdateInterval(4000, function () {
         music.playMelody("A G A B A F A B ", 10000)
         music.playMelody("A G A B A F A B ", 10000)
         music.playMelody("A G A B A F A B ", 10000)
-        airlock.setPosition(84, 101)
-    } else {
-    	
+    } else if (false) {
+        red = sprites.createProjectileFromSprite(img`
+            . . . . . . . . . . 
+            . . f f f f f f . . 
+            . f 7 7 7 7 7 7 f . 
+            . f f f f 7 7 f 7 f 
+            f 9 9 1 1 f 7 f 7 f 
+            f 1 9 9 9 f 7 f 7 f 
+            . f f f f 7 7 f 7 f 
+            . f 7 7 7 7 7 f 7 f 
+            . f 7 7 7 7 7 7 f . 
+            . f 7 7 7 7 7 7 f . 
+            . f 7 f f f f 7 f . 
+            . f f f . . f f f . 
+            `, meeting, 0, speed)
+        airlock.say("lime was not the impostor")
+        music.playMelody("A G A B A F A B ", 10000)
+        music.playMelody("A G A B A F A B ", 10000)
+        music.playMelody("A G A B A F A B ", 10000)
+        music.playMelody("A G A B A F A B ", 10000)
+        music.playMelody("A G A B A F A B ", 10000)
+        music.playMelody("A G A B A F A B ", 10000)
+        music.playMelody("A G A B A F A B ", 10000)
+        music.playMelody("A G A B A F A B ", 10000)
+        music.playMelody("A G A B A F A B ", 10000)
     }
 })
 forever(function () {
@@ -206,5 +229,5 @@ forever(function () {
     music.playMelody("C A B C B E D C5 ", 500)
 })
 game.onUpdateInterval(500, function () {
-    speed += 1
+    speed += 0.1
 })
