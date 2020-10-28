@@ -1,5 +1,36 @@
+namespace SpriteKind {
+    export const meeting = SpriteKind.create()
+}
+let speed = 0
 let red: Sprite = null
 let color = 0
+let meeting = sprites.create(img`
+    ddddddddddddddddddddddddd
+    ddddddddddddddddddddddddd
+    ddddddddddddddddddddddddd
+    dddddddd666666666dddddddd
+    ddddddd66666666666ddddddd
+    dddddd6666666666666dddddd
+    ddddd666666666666666ddddd
+    dddd66666666666666666dddd
+    dddd6666665f5f5666666d666
+    666d666666fdddf666666d666
+    666d6666665d2d5666666d666
+    666d666666fdddf666666d666
+    666d6666665f5f5666666d666
+    666d66666666666666666d666
+    666d66666666666666666d666
+    666d66666666666666666d666
+    8d8dd666666666666666dd8d8
+    6666dd6666666666666dd6668
+    666666d66666666666dd66666
+    66666666666666666dd666666
+    d66666666dd8888ddd66666dd
+    dd8666666888888dd666668dd
+    dd8d666668888888d666dd8dd
+    ddddd666dddddddddd8ddd8dd
+    dddddd8ddddddddddd8dddddd
+    `, SpriteKind.meeting)
 tiles.setTilemap(tiles.createTilemap(hex`1000100001010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101`, img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
@@ -54,7 +85,6 @@ game.onUpdate(function () {
 	
 })
 game.onUpdateInterval(4000, function () {
-    let meeting: Sprite = null
     color = randint(1, 4)
     if (color == 1) {
         red = sprites.createProjectileFromSprite(img`
@@ -70,7 +100,7 @@ game.onUpdateInterval(4000, function () {
             . f 2 2 2 2 2 2 f . 
             . f 2 f f f f 2 f . 
             . f f f . . f f f . 
-            `, red, 50, 50)
+            `, meeting, 0, speed)
         red.setPosition(15, -5)
         music.playMelody("A G A B A F A B ", 10000)
         music.playMelody("A G A B A F A B ", 10000)
@@ -97,7 +127,7 @@ game.onUpdateInterval(4000, function () {
             . f 9 9 9 9 9 9 f . 
             . f 9 f f f f 9 f . 
             . f f f . . f f f . 
-            `, meeting, 50, 50)
+            `, meeting, 0, speed)
         airlock.say("cyan was not the impostor")
         music.playMelody("A G A B A F A B ", 10000)
         music.playMelody("A G A B A F A B ", 10000)
@@ -123,7 +153,7 @@ game.onUpdateInterval(4000, function () {
             . f a a a a a a f . 
             . f a f f f f a f . 
             . f f f . . f f f . 
-            `, red, 50, 50)
+            `, meeting, 0, speed)
         airlock.say("purple was not the impostor")
         music.playMelody("A G A B A F A B ", 10000)
         music.playMelody("A G A B A F A B ", 10000)
@@ -149,7 +179,7 @@ game.onUpdateInterval(4000, function () {
             . f 8 8 8 8 8 8 f . 
             . f 8 f f f f 8 f . 
             . f f f . . f f f . 
-            `, meeting, 50, 50)
+            `, meeting, 0, speed)
         airlock.say("blue was not the impostor")
         music.playMelody("A G A B A F A B ", 10000)
         music.playMelody("A G A B A F A B ", 10000)
@@ -174,4 +204,7 @@ forever(function () {
     music.playMelody("C E G B B G E C ", 500)
     music.playMelody("D C C5 B A E F C5 ", 500)
     music.playMelody("C A B C B E D C5 ", 500)
+})
+game.onUpdateInterval(500, function () {
+    speed += 1
 })
